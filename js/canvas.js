@@ -9,6 +9,8 @@ var img_src;
 
 var textRect = {x:150,y:300,width:0,height:0};
 
+var downloadButton = $('#download-canvas');
+
 function fixEvent(e) {
   //Use offset is better, but FF does not have offset
     if (! e.hasOwnProperty('offsetX')) {
@@ -147,6 +149,8 @@ function drawCanvas() {
         fillTextMultiLine(context,txt,textRect.x,textRect.y)
         // context.fillText(txt,textRect.x,textRect.y);
         context.restore();
+
+        downloadButton.removeClass("disabled");
 }
 
 function initCanvas() {
@@ -170,6 +174,7 @@ function initCanvas() {
       fillTextMultiLine(context,txt,380 ,350)
       // context.fillText(txt,textRect.x,textRect.y);
       context.restore();
+      downloadButton.addClass("disabled");
 }
 
 function make_pic() {
@@ -230,7 +235,21 @@ $("#canvas").mousemove(function(event) {
     }
 });
 
-initCanvas();
+ function downloadCanvas (event) {
+    if(img_src==null) {
+      event.preventDefault();
+      return false;
+    }
+    var canvas = document.getElementById('canvas');
+    var dataURL = canvas.toDataURL('image/png');
+
+    console.log(dataURL);
+    event.target.href = dataURL;
+}
+
+$().ready(function (){
+  initCanvas();
+});
 
 
 // Drag and Drop
@@ -256,6 +275,8 @@ initCanvas();
 var dropZone = document.getElementById('canvas');
 dropZone.addEventListener('dragover', handleDragOver, false);
 dropZone.addEventListener('drop', handleFileSelect, false);
+
+document.getElementById("download-canvas").addEventListener('click', downloadCanvas, false);
 
 document.getElementById("uploadimage").addEventListener("change", uploadByButton, false);
 $("#resize").on("input change", drawCanvas);
