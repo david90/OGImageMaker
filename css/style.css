@@ -173,3 +173,8 @@ code {
   -ms-user-select: text;
   user-select: text;
 }
+
+/*OGBOX*/
+.ogbox-container {
+  margin: 14px 20px;
+}
