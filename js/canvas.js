@@ -41,14 +41,20 @@ function uploadByButton() {
     buildcanvas();
 }
 
-function getTextCenter() {
-  var pos = {x:0,y:0};
+function getImageCenter(pic_w, pic_h) {
+  var h = canvas.height;
+  var w = canvas.width;
+
+  var result_w = (w - pic_w)/2;
+  var result_h = (h - pic_h)/2;
+
+  var pos = {x:result_w, y:result_h};
   return pos;
 }
 
 // prepare image to fit canvas;
 function prep_image(pic_w, pic_h) {
-    xfact =  pic_h / canvas.height * 50;
+    xfact =  pic_w / canvas.width * 50;
     return xfact;
 }
 
@@ -121,13 +127,18 @@ function drawCanvas() {
         // store text area. and hit text
         var fontsize = $(".font-size").val();
         var fontFamily = $(".font-family").val();
-        context.font = 'bold '+fontsize+'pt '+fontFamily;
+        var boldIfNeeded = ($("#bold-switch").is(':checked'))? 'bold':'normal';
+        var smallCapsIfNeeded = ($("#small-caps-switch").is(':checked'))? 'small-caps ':'';
+        context.font = boldIfNeeded+' '+smallCapsIfNeeded+fontsize+'pt '+fontFamily;
         context.fillStyle = $(".text-color").val();
-        // context.shadowColor = '#999';
-        // context.shadowBlur = 5;
-        // context.shadowOffsetX = 0;
-        // context.shadowOffsetY = 0;
 
+        if($("#shadow-switch").is(':checked')) {
+          context.save();
+          context.shadowColor = '#333';
+          context.shadowBlur = 10;
+          context.shadowOffsetX = 0;
+          context.shadowOffsetY = 0;
+        }
         var txt = $(".text-field").val();
 
         if(hitText) {
@@ -147,6 +158,9 @@ function drawCanvas() {
         //console.log(context.measureText(txt));
 
         fillTextMultiLine(context,txt,textRect.x,textRect.y)
+        if($("#shadow-switch").is(':checked')) {
+          context.restore();
+        }
         // context.fillText(txt,textRect.x,textRect.y);
         context.restore();
 
@@ -167,11 +181,11 @@ function initCanvas() {
       context.font = 'italic 50pt Georgia';
       context.fillStyle = "#ccc"
 
-      var txt = "Drop files here"
+      var txt = "Drop an image here"
 
       //console.log(context.measureText(txt));
 
-      fillTextMultiLine(context,txt,380 ,350)
+      fillTextMultiLine(context,txt,300 ,350)
       // context.fillText(txt,textRect.x,textRect.y);
       context.restore();
       downloadButton.addClass("disabled");
@@ -180,6 +194,19 @@ function initCanvas() {
 function resetCanvas() {
   img_src = null;
   initCanvas();
+}
+
+function addImgToCanvas() {
+  // put in the middle
+  xfact = prep_image(pic_image.width , pic_image.height);
+
+  var im_width = parseInt(pic_image.width * $('#resize').val() / xfact);
+  var im_height = parseInt(pic_image.height * $('#resize').val() / xfact);
+
+  var pic_center = getImageCenter(im_width,im_height);
+  lastX = pic_center.x;
+  lastY = pic_center.y;
+  drawCanvas();
 }
 
 function make_pic() {
@@ -193,7 +220,7 @@ function make_pic() {
     lastY=0;
 
     pic_image.src = img_src;
-    pic_image.onload = drawCanvas;
+    pic_image.onload = addImgToCanvas;
 }
 
 $("#canvas").mousedown(function(event){
@@ -282,7 +309,7 @@ dropZone.addEventListener('dragover', handleDragOver, false);
 dropZone.addEventListener('drop', handleFileSelect, false);
 
 document.getElementById("download-btn").addEventListener('click', downloadCanvas);
-document.getElementById("reset-btn").addEventListener('click', resetCanvas, false);
+document.getElementById("reset-btn").addEventListener('click', addImgToCanvas, false);
 
 document.getElementById("uploadimage").addEventListener("change", uploadByButton, false);
 $("#resize").on("input change", drawCanvas);
@@ -291,3 +318,6 @@ $(".text-color").on("input change", drawCanvas);
 $(".bg-color").on("input change", drawCanvas);
 $(".font-size").on("input change", drawCanvas);
 $(".font-family").on("input change", drawCanvas);
+$("#shadow-switch").on("change", drawCanvas);
+$("#bold-switch").on("change", drawCanvas);
+$("#small-caps-switch").on("change", drawCanvas);

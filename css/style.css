@@ -113,6 +113,9 @@ width: 100%;
 .text-field {
   height: 100px;
 }
+.switch-label {
+  font-size: 12px;
+}
 
 .btn-file {
     position: relative;

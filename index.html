@@ -53,14 +53,12 @@
           </div>
         </div>
         <div class="row">
-          <div class="large-12 medium-12 columns">
+          <div class="large-6 medium-6 columns">
             <label>Background color
               <input type="color" name="bgcolor" class="bg-color" value="#333333">
             </label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="large-12 medium-12 columns">
+          </div>        
+          <div class="large-6 medium-6 columns">
             <label>Font color
               <input type="color" name="textcolor" class="text-color" value="#ffffff">
             </label>
@@ -83,6 +81,31 @@
           </div>
         </div>
         <div class="row">
+          <div class="large-4 columns">
+            <div class="switch radius small">
+              <span class="switch-label">Shadow</span><br/>
+              <input id="shadow-switch" type="checkbox">
+              <label for="shadow-switch">Shadow</label>
+            </div> 
+          </div>
+          <div class="large-4 columns">
+            <div class="switch radius small">
+              <span class="switch-label">Bold</span><br/>
+              <input id="bold-switch" type="checkbox">
+              <label for="bold-switch">Bold</label>
+            </div> 
+          </div>        
+          <div class="large-4 columns">
+            <div class="switch radius small">
+              <span class="switch-label">Small-caps</span><br/>
+              <input id="small-caps-switch" type="checkbox">
+              <label for="small-caps-switch">small-caps</label>
+            </div> 
+          </div>
+        </div>
+
+
+        <div class="row">
           <div class="large-12 medium-12 columns">
             <label>Image Resize
               <input type="range" id="resize" min="1" max="150" value="50" step="-1"/>
@@ -98,7 +121,7 @@
         </div>
         <input type="hidden" value="0" id="img_resize">
         </div>
-        <a href="#" id="download-btn" class="button radius success small" download="og-image.png">Download Image</a> <a href="#" id="reset-btn" class="button secondary radius small">Reset</a>
+        <a href="#" id="download-btn" class="button radius success small" download="og-image.png">Download Image</a> <a href="#" id="reset-btn" class="button secondary radius small">Reset Image</a>
       </div>
     </div>
   </div>
