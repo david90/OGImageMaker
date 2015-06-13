@@ -9,7 +9,7 @@ var img_src;
 
 var textRect = {x:150,y:300,width:0,height:0};
 
-var downloadButton = $('#download-canvas');
+var downloadButton = $('#download-btn');
 
 function fixEvent(e) {
   //Use offset is better, but FF does not have offset
@@ -177,6 +177,11 @@ function initCanvas() {
       downloadButton.addClass("disabled");
 }
 
+function resetCanvas() {
+  img_src = null;
+  initCanvas();
+}
+
 function make_pic() {
     var stcanvas = document.getElementById('canvas');
     context = stcanvas.getContext('2d');
@@ -276,7 +281,8 @@ var dropZone = document.getElementById('canvas');
 dropZone.addEventListener('dragover', handleDragOver, false);
 dropZone.addEventListener('drop', handleFileSelect, false);
 
-document.getElementById("download-canvas").addEventListener('click', downloadCanvas, false);
+document.getElementById("download-btn").addEventListener('click', downloadCanvas);
+document.getElementById("reset-btn").addEventListener('click', resetCanvas, false);
 
 document.getElementById("uploadimage").addEventListener("change", uploadByButton, false);
 $("#resize").on("input change", drawCanvas);
