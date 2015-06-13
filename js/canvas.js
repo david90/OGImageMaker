@@ -10,6 +10,8 @@ var img_src;
 var textRect = {x:150,y:300,width:0,height:0};
 
 var downloadButton = $('#download-btn');
+var urlField = $(".url-field");
+var urlInput = $(".url-input");
 
 function fixEvent(e) {
   //Use offset is better, but FF does not have offset
@@ -36,6 +38,7 @@ function buildcanvas() {
 function uploadByButton() {
     var f = document.getElementById("uploadimage").files[0];
     if(f == null) return;
+    urlField.slideUp(200);
     var url = window.URL || window.webkitURL;
     img_src = url.createObjectURL(f);
     buildcanvas();
@@ -85,7 +88,7 @@ function fillTextMultiLine(ctx, text, x, y) {
     if(measureWidth>maxWidth) {maxWidth = measureWidth;}
     y += lineHeight;
   }
-  totalHeight = lineHeight * lines * linespace;
+  totalHeight = lineHeight * lines.length * linespace;
 
   textRect.width=maxWidth;
   textRect.height=lineHeight;
@@ -209,6 +212,24 @@ function addImgToCanvas() {
   drawCanvas();
 }
 
+function noBackgroudSelected(e) {
+    e.preventDefault();
+    img_src = "./img/transparent.png";
+    urlField.slideUp(200);
+    buildcanvas();
+}
+
+function urlBackgroudSelected(e) {
+  e.preventDefault();
+  urlField.slideDown(200);
+  urlInput.focus();
+}
+
+function urlChanged(e) {
+  img_src = urlInput.val();
+  buildcanvas();
+}
+
 function make_pic() {
     var stcanvas = document.getElementById('canvas');
     context = stcanvas.getContext('2d');
@@ -295,6 +316,7 @@ $().ready(function (){
       var url = window.URL || window.webkitURL;
       img_src = url.createObjectURL(f);
     }
+    urlField.slideUp(200);
     buildcanvas();
   }
 
@@ -302,6 +324,12 @@ $().ready(function (){
     evt.stopPropagation();
     evt.preventDefault();
     evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+  }
+
+  function testURLLinkClicked(e){
+    e.preventDefault();
+    $(".test-url-panel").slideDown(200);
+    $(".share-url").focus();
   }
 
 var dropZone = document.getElementById('canvas');
@@ -321,3 +349,9 @@ $(".font-family").on("input change", drawCanvas);
 $("#shadow-switch").on("change", drawCanvas);
 $("#bold-switch").on("change", drawCanvas);
 $("#small-caps-switch").on("change", drawCanvas);
+$(".none-bg-background").on("click", noBackgroudSelected);
+$(".url-bg-background").on("click", urlBackgroudSelected);
+
+$(".test-url-link").on("click", testURLLinkClicked)
+
+$(".url-input").on("input change", urlChanged);

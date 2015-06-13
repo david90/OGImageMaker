@@ -18,47 +18,116 @@
     </div>
     <div class="large-6 columns">
       <ul class="button-group right">
-        <li><a href="#" class="button small">Test your URL</a></li>
+        <li><a href="#" class="button small test-url-link">Test your URL</a></li>
       </ul>
+    </div>
+  </div>
+
+  <div class="panel test-url-panel">
+    <div class="row">
+      <div class="large-12 columns">
+      Which link do you want to share? 
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row collapse">
+            <div class="small-11 columns">
+              <input class="share-url" type="text" placeholder="http://www.facebook.com/david90">
+            </div>
+            <div class="small-1 columns">
+              <a href="#" class="button postfix">Go</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      </div>
+    </div>
+  </div>
+ <div class="row">
+    <div class="large-12 columns ogbox-container">
     </div>
   </div>
 
   <div class="row">
     <div class="large-8 columns">
-      <div class="fb-preview">
-        <div class="og-image-wrapper">
-          <canvas id="canvas" width="1200" height="630" class="drop_zone"></canvas>
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="fb-preview">
+            <div class="og-image-wrapper">
+              <canvas id="canvas" width="1200" height="630" class="drop_zone"></canvas>
+            </div>
+            <div class="fb-title"><input class="inline-edit full-width" value="OURSKY - Save your time generating OG images" /> </div>
+            <div class="fb-content"><input class="inline-edit full-width" value="We have built a generator for OG images!" /></div>
+            <div class="fb-link-wrapper">
+              <div class="fb-link"><input class="inline-edit full-width" value="www.oursky.com" /></div>
+            </div>
+          </div>
         </div>
-        <div class="fb-title"><input class="inline-edit full-width" value="【OURSKY】Save your time generating OG images" /> </div>
-        <div class="fb-content"><input class="inline-edit full-width" value="We have built a generator for OG images!" /></div>
-        <div class="fb-link-wrapper">
-          <div class="fb-link"><input class="inline-edit full-width" value="www.oursky.com" /></div>
+      </div>
+      <hr>
+
+      <div class="row">
+      <h6>Basic OG Tags</h6>
+        <div class="large-12 columns">
+          <pre><code class="language-html"><div class="code-container">
+&lt;meta property=&quot;og:title&quot; content=&quot;%title_content%&quot; /&gt;
+&lt;meta property=&quot;og:site_name&quot; content=&quot;%site_name_content%&quot;/&gt;
+&lt;meta property=&quot;og:url&quot;
+content=&quot;%url_content%&quot; /&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;%description_content%&quot; /&gt;
+&lt;meta property=&quot;og:type&quot; content=&quot;website&quot; /&gt;            
+          </div></code>
+          </pre>
         </div>
       </div>
     </div>
 
+    <!-- EDITTING PANEL -->
     <div class="large-4 columns">
       <div class="panel">
         <div class="row">
           <div class="large-12 columns">
-            <span class="btn btn-default btn-file">
-              <a href="#" class="button radius tiny">Browse</a> <input type='file' name='img' size='65' id='uploadimage' />
-            </span>
+            <h6 class="subheader" > ① Set Background</h6>
           </div>
         </div>
         <div class="row">
+          <div class="small-4 columns">
+            <span class="btn btn-default btn-file">
+              <a href="#" class="button radius tiny expand">Upload</a> <input type='file' name='img' size='65' id='uploadimage' />
+            </span>
+          </div>
+          <div class="small-4 columns">
+              <a href="#" class="button radius tiny expand url-bg-background">URL</a>
+          </div>
+          <div class="small-4 columns">
+              <a href="#" class="button radius tiny expand none-bg-background">None</a>
+          </div>
+        </div>
+
+        <div class="row url-field">
           <div class="large-12 columns">
-              <textarea class="text-field" type="text">Your Title
+            <label>URL
+              <input class="url-input" type="url" placeholder="Input image URL" />
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-12 columns">
+            <hr>
+            <h6 class="subheader" >② Set Text</h6>
+            <textarea class="text-field" type="text">Your Title
 (You can leave it blank)</textarea>
           </div>
         </div>
         <div class="row">
-          <div class="large-6 medium-6 columns">
+          <div class="small-6 medium-6 columns">
             <label>Background color
               <input type="color" name="bgcolor" class="bg-color" value="#333333">
             </label>
           </div>        
-          <div class="large-6 medium-6 columns">
+          <div class="small-6 medium-6 columns">
             <label>Font color
               <input type="color" name="textcolor" class="text-color" value="#ffffff">
             </label>
@@ -81,21 +150,21 @@
           </div>
         </div>
         <div class="row">
-          <div class="large-4 columns">
+          <div class="small-4 columns">
             <div class="switch radius small">
               <span class="switch-label">Shadow</span><br/>
               <input id="shadow-switch" type="checkbox">
               <label for="shadow-switch">Shadow</label>
             </div> 
           </div>
-          <div class="large-4 columns">
+          <div class="small-4 columns">
             <div class="switch radius small">
               <span class="switch-label">Bold</span><br/>
               <input id="bold-switch" type="checkbox">
               <label for="bold-switch">Bold</label>
             </div> 
-          </div>        
-          <div class="large-4 columns">
+          </div>
+          <div class="small-4 columns">
             <div class="switch radius small">
               <span class="switch-label">Small-caps</span><br/>
               <input id="small-caps-switch" type="checkbox">
@@ -148,6 +217,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
     <script src="js/foundation.min.js"></script>
     <script src="js/canvas.js"></script>
+    <script src="js/ogbox.js"></script>
+    <script src="js/testurl.js"></script>
     <script>
       $(document).foundation();
     </script>
