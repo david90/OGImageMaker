@@ -1,4 +1,16 @@
+var moveXAmount=0;
+var moveYAmount=0;
+var isDragging=false;
+var hitText = false;
+var pic_image;
+var context;
+var lastX=0, lastY=0;
+var img_src;
+
+var textRect = {x:150,y:300,width:0,height:0};
+
 function fixEvent(e) {
+  //Use offset is better, but FF does not have offset
     if (! e.hasOwnProperty('offsetX')) {
         var curleft = curtop = 0;
         if (e.offsetParent) {
@@ -16,15 +28,19 @@ function fixEvent(e) {
 
 function buildcanvas() {
   console.log("buildcanvas");
-    var stcanvas = document.getElementById('canvas');
-    var ctx = stcanvas.getContext('2d');
+  make_pic();
+}
 
-    make_pic(ctx);
+function uploadByButton() {
+    var f = document.getElementById("uploadimage").files[0];
+    if(f == null) return;
+    var url = window.URL || window.webkitURL;
+    img_src = url.createObjectURL(f);
+    buildcanvas();
 }
 
 function getTextCenter() {
   var pos = {x:0,y:0};
-  
   return pos;
 }
 
@@ -33,17 +49,6 @@ function prep_image(pic_w, pic_h) {
     xfact =  pic_h / canvas.height * 50;
     return xfact;
 }
-
-var moveXAmount=0;
-var moveYAmount=0;
-var isDragging=false;
-var hitText = false;
-var pic_image;
-var context;
-var lastX=0, lastY=0;
-
-var textRect = {x:250,y:100,width:0,height:0};
-
 
 CanvasRenderingContext2D.prototype.clear = 
   CanvasRenderingContext2D.prototype.clear || function (preserveTransform) {
@@ -80,7 +85,8 @@ function fillTextMultiLine(ctx, text, x, y) {
 
 function drawCanvas() {
       //redraw canvas
-        
+        if(img_src == null) return;
+
         context.clear();
 
         xfact = prep_image(pic_image.width , pic_image.height);
@@ -112,7 +118,8 @@ function drawCanvas() {
         //  Text
         // store text area. and hit text
         var fontsize = $(".font-size").val();
-        context.font = 'bold '+fontsize+'pt Helvetica';
+        var fontFamily = $(".font-family").val();
+        context.font = 'bold '+fontsize+'pt '+fontFamily;
         context.fillStyle = $(".text-color").val();
         // context.shadowColor = '#999';
         // context.shadowBlur = 5;
@@ -142,16 +149,40 @@ function drawCanvas() {
         context.restore();
 }
 
-function make_pic(ctx) {
-    context = ctx;
+function initCanvas() {
+    //redraw canvas
+      var stcanvas = document.getElementById('canvas');
+      context = stcanvas.getContext('2d');
+      context.clear();
+      // BG
+      context.rect(0,0,canvas.width,canvas.height);
+      context.fillStyle= "#eeeeee"
+      context.fill();
+
+      //  Text
+      context.font = 'italic 50pt Georgia';
+      context.fillStyle = "#ccc"
+
+      var txt = "Drop files here"
+
+      //console.log(context.measureText(txt));
+
+      fillTextMultiLine(context,txt,380 ,350)
+      // context.fillText(txt,textRect.x,textRect.y);
+      context.restore();
+}
+
+function make_pic() {
+    var stcanvas = document.getElementById('canvas');
+    context = stcanvas.getContext('2d');
     context.clear();
     pic_image = new Image();
-    var f = document.getElementById("uploadimage").files[0];
-    if(f == null) return;
-    var url = window.URL || window.webkitURL,
-        src = url.createObjectURL(f);
 
-    pic_image.src = src;
+    // Reset position
+    lastX=0;
+    lastY=0;
+
+    pic_image.src = img_src;
     pic_image.onload = drawCanvas;
 }
 
@@ -185,7 +216,6 @@ var lastMoveEvent;
 $("#canvas").mousemove(function(event) {
     if( isDragging == true )
     {
-      //Use offset is better, but FF does not have offset
         var x = fixEvent(event.originalEvent).offsetX;
         var y = fixEvent(event.originalEvent).offsetY;
 
@@ -200,11 +230,37 @@ $("#canvas").mousemove(function(event) {
     }
 });
 
-buildcanvas();
+initCanvas();
 
-document.getElementById("uploadimage").addEventListener("change", buildcanvas, false);
+
+// Drag and Drop
+  function handleFileSelect(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    var files = evt.dataTransfer.files; // FileList object.
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+      var url = window.URL || window.webkitURL;
+      img_src = url.createObjectURL(f);
+    }
+    buildcanvas();
+  }
+
+  function handleDragOver(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+  }
+
+var dropZone = document.getElementById('canvas');
+dropZone.addEventListener('dragover', handleDragOver, false);
+dropZone.addEventListener('drop', handleFileSelect, false);
+
+document.getElementById("uploadimage").addEventListener("change", uploadByButton, false);
 $("#resize").on("input change", drawCanvas);
 $(".text-field").on("input change", drawCanvas);
 $(".text-color").on("input change", drawCanvas);
 $(".bg-color").on("input change", drawCanvas);
 $(".font-size").on("input change", drawCanvas);
+$(".font-family").on("input change", drawCanvas);

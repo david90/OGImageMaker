@@ -1,4 +1,11 @@
-
+body {
+  font-family: 'Raleway', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  color: #222;
+}
+.logo {
+  height: 100px;
+}
 .noselect {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -25,10 +32,11 @@
   /*translate(-159px,-150px);*/
 }
 .fb-preview {
-  margin: 20px auto;
+  margin: auto;
   max-width: 1200px;
   width: 600px;
   border: 1px #ccc solid;
+  background-color: #ffffff;
   border-radius: 1px;
 }
 .fb-title {
@@ -42,6 +50,7 @@
   word-wrap: break-word;
 }
 .fb-content {
+  font-family: helvetica, arial, sans-serif;
   color: #141823;
   font-size: 12px;
   max-height: 132px;
@@ -98,4 +107,30 @@ background-color: #FFD;
 }
 .full-width {
 width: 100%;
+}
+
+/* Editing Panel */
+.text-field {
+  height: 100px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }

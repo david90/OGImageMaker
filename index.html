@@ -1,31 +1,134 @@
 <!DOCTYPE HTML>
-<html>
+<html class="no-js" lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>OG Image Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Make og:image</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
+    <link href="http://fonts.googleapis.com/css?family=Raleway:600,400,200" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet" type="text/css">
+    
   </head>
   <body class="noselect">
-    <input type='file' name='img' size='65' id='uploadimage' />
-    <textarea class="text-field" type="text" value="Sample topic"> </textarea>
-    Background color: <input type="color" name="bgcolor" class="bg-color" value="#eeeeee">
-    Text color <input type="color" name="textcolor" class="text-color" value="#eeeeee">
-    Resize<input type="range" id="resize" min="1" max="150" value="50" step="-1"/>
-    Font size<input type="range" class="font-size" min="12" max="90" value="40" step="1"/>
-    <input type="hidden" value="0" id="img_resize">
-    <div class="fb-preview">
-      <div class="og-image-wrapper">
-        <canvas id="canvas" width="1200" height="630"></canvas>
-      </div>
-      <div class="fb-title"><input class="inline-edit full-width" value="【OURSKY】Save your time generating OG images" /> </div>
-      <div class="fb-content"><input class="inline-edit full-width" value="We have built a generator for OG images!" /></div>
-      <div class="fb-link-wrapper">
-        <div class="fb-link"><input class="inline-edit full-width" value="www.oursky.com" /></div>
+  <div class="row">
+    <div class="large-12 columns">
+      <img src="./img/logo.png" alt="Make og:image" class="logo"/>
+    </div>
+    <!-- <div class="large-9 columns">
+      <ul class="button-group right">
+        <li><a href="#" class="button">About</a></li>
+        <li><a href="#" class="button">Blog</a></li>
+        <li><a href="#" class="button">Contact</a></li>
+      </ul>
+    </div> -->
+  </div>
+
+  <div class="row">
+    <div class="large-8 columns">
+      <div class="fb-preview">
+        <div class="og-image-wrapper">
+          <canvas id="canvas" width="1200" height="630" class="drop_zone"></canvas>
+        </div>
+        <div class="fb-title"><input class="inline-edit full-width" value="【OURSKY】Save your time generating OG images" /> </div>
+        <div class="fb-content"><input class="inline-edit full-width" value="We have built a generator for OG images!" /></div>
+        <div class="fb-link-wrapper">
+          <div class="fb-link"><input class="inline-edit full-width" value="www.oursky.com" /></div>
+        </div>
       </div>
     </div>
-    <script src="js/canvas.js"></script>
 
-    <footer>Proven to be working on Safari, Firefox and Chrome</footer>
+    <div class="large-4 columns">
+      <div class="panel">
+        <div class="row">
+          <div class="large-12 columns">
+            <span class="btn btn-default btn-file">
+              <a href="#" class="button radius tiny">Browse</a> <input type='file' name='img' size='65' id='uploadimage' />
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns">
+              <textarea class="text-field" type="text">Your Title
+(You can leave it blank)</textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 medium-12 columns">
+            <label>Background color
+              <input type="color" name="bgcolor" class="bg-color" value="#333333">
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 medium-12 columns">
+            <label>Font color
+              <input type="color" name="textcolor" class="text-color" value="#ffffff">
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <label>Font family
+              <select class="font-family">
+                <option value="Helvetica">Helvetica</option>
+                <option value="Arial">Arial</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Impact">Impact</option>
+                <option value="Palatino Linotype">Palatino Linotype</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 medium-12 columns">
+            <label>Image Resize
+              <input type="range" id="resize" min="1" max="150" value="50" step="-1"/>
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 medium-12 columns">
+            <label>Font size
+              <input type="range" class="font-size" min="12" max="100" value="60" step="1"/>
+            </label>
+          </div>
+        </div>
+        <input type="hidden" value="0" id="img_resize">
+        </div>
+        <a href="#" class="button radius success small">Download Image</a> <a href="#" class="button secondary radius small">Reset</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="row">
+    <div class="large-12 columns">
+      <hr>
+      <div class="row">
+        <div class="large-6 columns">
+          <p>© Oursky Ltd.</p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Tips</a></li>
+        </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/canvas.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
   </body>
 </html>
