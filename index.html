@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>OG Image Generator</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
+  </head>
+  <body class="noselect">
+    <input type='file' name='img' size='65' id='uploadimage' />
+    <textarea class="text-field" type="text" value="Sample topic"> </textarea>
+    Background color: <input type="color" name="bgcolor" class="bg-color" value="#eeeeee">
+    Text color <input type="color" name="textcolor" class="text-color" value="#eeeeee">
+    Resize<input type="range" id="resize" min="1" max="150" value="50" step="-1"/>
+    Font size<input type="range" class="font-size" min="12" max="90" value="40" step="1"/>
+    <input type="hidden" value="0" id="img_resize">
+    <div class="fb-preview">
+      <div class="og-image-wrapper">
+        <canvas id="canvas" width="1200" height="630"></canvas>
+      </div>
+      <div class="fb-title"><input class="inline-edit full-width" value="【OURSKY】Save your time generating OG images" /> </div>
+      <div class="fb-content"><input class="inline-edit full-width" value="We have built a generator for OG images!" /></div>
+      <div class="fb-link-wrapper">
+        <div class="fb-link"><input class="inline-edit full-width" value="www.oursky.com" /></div>
+      </div>
+    </div>
+    <script src="js/canvas.js"></script>
+
+    <footer>Proven to be working on Safari, Firefox and Chrome</footer>
+  </body>
+</html>
