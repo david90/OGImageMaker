@@ -184,16 +184,42 @@ content=&quot;%url_content%&quot; /&gt;
         <div class="row">
           <div class="large-12 medium-12 columns">
             <label>Font size
-              <input type="range" class="font-size" min="12" max="100" value="60" step="1"/>
+              <input type="range" class="font-size" min="24" max="200" value="60" step="1"/>
             </label>
           </div>
         </div>
         <input type="hidden" value="0" id="img_resize">
         </div>
-        <a href="#" id="download-btn" class="button radius success small" download="og-image.png">Download Image</a> <a href="#" id="reset-btn" class="button secondary radius small">Reset Image</a>
+        <div class="row">
+          <div class="large-12 medium-12 columns">
+          <a href="#" id="download-btn" class="button radius success tiny" download="og-image.png">Download Image</a> <a href="#" id="reset-btn" class="button secondary radius tiny">Reset Image</a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-12 medium-12 columns">
+            <a href="#" id="save-btn" class="button radius success small expand info" data-reveal-id="loginModal"> Save </a>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
+
+<div id="loginModal" class="reveal-modal tiny" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+  <!-- <h3 id="modalTitle">Login</h3> -->
+  <img src="./img/logo.png" />
+  <p class="lead">To use the <i>save</i> function, you have to log in first.</p>
+  
+  
+  <hr>
+  <p>Get an account now!</p>
+
+  <input type="email" placeholder="Email"/>
+  <input type="password" placeholder="password"/>
+  <a href="#" class="button success right small">GET ACCOUNT</a>
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
 
   <footer class="row">
     <div class="large-12 columns">
