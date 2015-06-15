@@ -25,7 +25,10 @@
 //    var boxEle = $('<div class="ogbox-card slider">'+imgEle+'<b>'+dataJSON['url']+'</b><br/>'+dataJSON['og:description']+'</div>');
 
     var desc = dataJSON.hasOwnProperty("og:description") ? dataJSON['og:description'] : dataJSON['description'];
-    var title = dataJSON.hasOwnProperty("og:site_name") ? dataJSON['og:site_name'] : dataJSON['title'];
+    var title = dataJSON.hasOwnProperty("og:title") ? dataJSON['og:title'] : dataJSON['title'];
+    var siteName = dataJSON.hasOwnProperty("og:site_name") ? dataJSON['og:site_name'] : dataJSON['title'];
+
+    title = (title == undefined)? site_name : title;
 
     var author = dataJSON.hasOwnProperty("author") ? "| by "+dataJSON['author'] : "";
 
